@@ -78,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Text(
                           _current == 0
-                              ? 'Let\'s dive into the world of hockey!'
+                              ? 'Let\'s dive into\n the world of hockey!'
                               : 'We value your feedback',
                           style: OnboardingTextStyle.introduction,
                           textAlign: TextAlign.start,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../consts/app_colors.dart';
+import '../../../consts/app_text_styles/onboarding_text_style.dart';
 import '../../../data/models/news_model.dart';
 import '../widgets/news_item_wiidget.dart';
 
@@ -19,7 +20,8 @@ class SportNewsScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: const Text(
-            'Football news',
+            'Hockey news',
+            style: OnboardingTextStyle.screenTitle,
           ),
         ),
         body: Container(

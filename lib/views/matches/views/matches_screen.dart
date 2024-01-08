@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hockey_app/consts/app_colors.dart';
 
+import '../../../consts/app_text_styles/onboarding_text_style.dart';
 import '../../../data/repository/api_repository.dart';
 import '../widgets/match_widget.dart';
 
 class MatchesScreen extends StatelessWidget {
   final ApiRepository apiRepository = ApiRepository();
 
+  MatchesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Matches Screen',
-          style: TextStyle(color: AppColors.whiteColor),
-        ),
+        title: const Text('Matches Screen',
+            style: OnboardingTextStyle.screenTitle),
         backgroundColor: AppColors.blackColor,
       ),
       body: Container(
@@ -23,7 +24,10 @@ class MatchesScreen extends StatelessWidget {
           future: apiRepository.fetchMatches('2024-01-08'),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: AppColors.lightBlueColor,
+              ));
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.hasData) {
@@ -34,7 +38,7 @@ class MatchesScreen extends StatelessWidget {
                 },
               );
             } else {
-              return Text('No matches found');
+              return const Text('No matches found');
             }
           },
         ),

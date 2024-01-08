@@ -22,13 +22,14 @@ class _HomeScreenState extends State<HomeScreen> {
     SportNewsScreen(
       newsModel: news,
     ),
-    CommunityScreen(),
+    const CommunityScreen(),
     const CalendarScreen(),
     const SettingsScreen()
   ];
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: homeWidgets[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -36,8 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/icons/matches.svg',
-              width: 80.0,
-              height: 40.0,
+              width: size.height * 0.04,
+              height: size.height * 0.06,
               color: currentIndex == 0
                   ? AppColors.lightBlueColor
                   : AppColors.lightGreyColor,
@@ -47,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
               'assets/icons/sport_news.svg',
-              width: 80.0,
-              height: 40.0,
+              width: size.height * 0.04,
+              height: size.height * 0.06,
               color: currentIndex == 1
                   ? AppColors.lightBlueColor
                   : AppColors.lightGreyColor,
@@ -58,8 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/icons/community.svg',
-                width: 80.0,
-                height: 40.0,
+                width: size.height * 0.04,
+                height: size.height * 0.06,
                 color: currentIndex == 2
                     ? AppColors.lightBlueColor
                     : AppColors.lightGreyColor,
@@ -68,8 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/icons/calendar.svg',
-                width: 80.0,
-                height: 40.0,
+                width: size.height * 0.04,
+                height: size.height * 0.06,
                 color: currentIndex == 3
                     ? AppColors.lightBlueColor
                     : AppColors.lightGreyColor,
@@ -78,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/icons/settings.svg',
-                width: 80.0,
-                height: 40.0,
+                width: size.height * 0.04,
+                height: size.height * 0.06,
                 color: currentIndex == 4
                     ? AppColors.lightBlueColor
                     : AppColors.lightGreyColor,

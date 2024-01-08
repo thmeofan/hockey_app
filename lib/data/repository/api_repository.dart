@@ -23,6 +23,12 @@ class ApiRepository {
 
 String formatDateTime(String dateTimeString) {
   final dateTime = DateTime.parse(dateTimeString);
-  final formatter = DateFormat('dd-MM-yy – kk:mm');
+  final formatter = DateFormat('dd.MM.yy, kk:mm');
+  return formatter.format(dateTime);
+}
+
+String formatDateTimeCalendar(String dateTimeString) {
+  final dateTime = DateTime.parse(dateTimeString);
+  final formatter = DateFormat('dd.MM.yy');
   return formatter.format(dateTime);
 }

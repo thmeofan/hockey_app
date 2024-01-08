@@ -7,21 +7,6 @@ import '../../../consts/app_text_styles/onboarding_text_style.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  // Future<void> _launchURL() async {
-  //   Uri url = Uri.parse('https://google.com/');
-  //   if (await canLaunchUrl(url)) {
-  //     final bool launched = await launchUrl(
-  //       url,
-  //       mode: LaunchMode.externalApplication,
-  //     );
-  //     if (!launched) {
-  //       throw 'Could not launch $url';
-  //     }
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,7 +15,10 @@ class SettingsScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Settings'),
+        title: const Text(
+          'Settings',
+          style: OnboardingTextStyle.screenTitle,
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(color: AppColors.blackColor),

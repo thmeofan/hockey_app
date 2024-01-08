@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hockey_app/consts/app_text_styles/news_text_style.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../consts/app_colors.dart';
+import '../../../consts/app_text_styles/onboarding_text_style.dart';
 import '../../../data/models/video_model.dart';
 
 class CommunityScreen extends StatefulWidget {
@@ -17,15 +19,15 @@ class _CommunityScreenState extends State<CommunityScreen> {
   @override
   void initState() {
     super.initState();
-    _controllers = Map.fromIterable(videos,
-        key: (video) => video.videoId,
-        value: (video) => _createController(video.videoId));
+    _controllers = {
+      for (var video in videos) video.videoId: _createController(video.videoId)
+    };
   }
 
   YoutubePlayerController _createController(String videoId) {
     return YoutubePlayerController(
       initialVideoId: videoId,
-      flags: YoutubePlayerFlags(
+      flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
       ),
@@ -34,7 +36,9 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   @override
   void dispose() {
-    _controllers.values.forEach((controller) => controller.dispose());
+    for (var controller in _controllers.values) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -42,10 +46,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Community Screen',
-          style: TextStyle(color: AppColors.whiteColor),
-        ),
+        title: const Text('Community Screen',
+            style: OnboardingTextStyle.screenTitle),
         backgroundColor: AppColors.blackColor,
       ),
       body: Container(
@@ -54,30 +56,27 @@ class _CommunityScreenState extends State<CommunityScreen> {
           itemCount: videos.length,
           itemBuilder: (context, index) {
             var video = videos[index];
-            YoutubePlayerController _controller = _controllers[video.videoId]!;
+            YoutubePlayerController controller = _controllers[video.videoId]!;
 
             return Card(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
               color: AppColors.darkGreyColor,
-              margin: EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                       video.title,
-                      style: TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.whiteColor),
+                      style: NewsTextStyle.articleTitle,
                     ),
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: YoutubePlayer(
-                      controller: _controller,
+                      controller: controller,
                       showVideoProgressIndicator: true,
                       liveUIColor: AppColors.lightBlueColor,
                     ),

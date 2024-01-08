@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hockey_app/consts/app_colors.dart';
+import 'package:hockey_app/consts/app_text_styles/match_text_style.dart';
 
 import '../../../data/repository/api_repository.dart';
 
@@ -13,7 +14,7 @@ class MatchWidget extends StatelessWidget {
     final homeTeam = matchData['teams']['home'];
     final awayTeam = matchData['teams']['away'];
     final scores = matchData['scores'];
-
+    final screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
@@ -28,52 +29,48 @@ class MatchWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    formatDateTime(matchData['date']),
-                    style: TextStyle(color: AppColors.whiteColor),
-                  ),
-                  Text(
-                    matchData['league']['name'],
-                    style: TextStyle(color: AppColors.whiteColor),
-                  ),
+                  Text(formatDateTime(matchData['date']),
+                      style: MatchTextStyle.title),
+                  Text(matchData['league']['name'],
+                      style: MatchTextStyle.title),
                 ],
               ),
             ),
             SizedBox(
-              height: 15,
+              height: screenSize.height * 0.01,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Image.network(
                   homeTeam['logo'],
-                  width: 40,
-                  height: 40,
+                  width: screenSize.height * 0.05,
+                  height: screenSize.height * 0.05,
                 ),
                 Text(
                   '${scores['home']} - ${scores['away']}',
-                  style: TextStyle(color: AppColors.whiteColor),
+                  style: MatchTextStyle.score,
                 ),
                 Image.network(
                   awayTeam['logo'],
-                  width: 40,
-                  height: 40,
+                  width: screenSize.height * 0.05,
+                  height: screenSize.height * 0.05,
                 ),
               ],
             ),
             SizedBox(
-              height: 15,
+              height: screenSize.height * 0.01,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   homeTeam['name'],
-                  style: TextStyle(color: AppColors.whiteColor),
+                  style: MatchTextStyle.team,
                 ),
                 Text(
                   awayTeam['name'],
-                  style: TextStyle(color: AppColors.whiteColor),
+                  style: MatchTextStyle.team,
                 ),
               ],
             ),

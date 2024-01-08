@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hockey_app/consts/app_colors.dart';
+import 'package:hockey_app/consts/app_text_styles/onboarding_text_style.dart';
 
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -15,16 +16,18 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  final CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   List<dynamic> _selectedDayMatches = [];
   final ApiRepository apiRepository = ApiRepository();
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
+
     _fetchMatchesForSelectedDate();
   }
 
@@ -33,6 +36,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     final matches = await apiRepository.fetchMatches(dateString);
     setState(() {
       _selectedDayMatches = matches;
+      _isLoading = false;
     });
   }
 
@@ -40,18 +44,55 @@ class _CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Match Calendar'),
+        title: const Text('Match Calendar',
+            style: OnboardingTextStyle.screenTitle),
         backgroundColor: AppColors.blackColor,
       ),
       body: Container(
         color: AppColors.blackColor,
         child: Column(
           children: <Widget>[
-            if (_selectedDayMatches.isNotEmpty)
+            if (_isLoading)
+              const Center(
+                child: CircularProgressIndicator(
+                  color: AppColors.lightBlueColor,
+                ),
+              ),
+            if (!_isLoading && _selectedDayMatches.isEmpty)
+              const Text('Error: Matches aren\'t found'),
+            if (!_isLoading && _selectedDayMatches.isNotEmpty)
               CalendarMatchWidget(matchData: _selectedDayMatches[0]),
-            if (_selectedDayMatches.length > 1)
+            if (!_isLoading && _selectedDayMatches.length > 1)
               CalendarMatchWidget(matchData: _selectedDayMatches[1]),
             TableCalendar(
+              headerStyle: const HeaderStyle(
+                titleTextStyle: TextStyle(
+                  color: AppColors.lightBlueColor,
+                ),
+                leftChevronIcon:
+                    Icon(Icons.chevron_left, color: AppColors.lightGreyColor),
+                rightChevronIcon:
+                    Icon(Icons.chevron_right, color: AppColors.lightGreyColor),
+                formatButtonVisible: false,
+              ),
+              daysOfWeekStyle: const DaysOfWeekStyle(
+                weekdayStyle: TextStyle(color: AppColors.lightGreyColor),
+                weekendStyle: TextStyle(color: AppColors.lightBlueColor),
+              ),
+              calendarStyle: CalendarStyle(
+                defaultTextStyle:
+                    const TextStyle(color: AppColors.lightGreyColor),
+                weekendTextStyle:
+                    const TextStyle(color: AppColors.lightBlueColor),
+                selectedDecoration: const BoxDecoration(
+                  color: AppColors.lightBlueColor,
+                  shape: BoxShape.circle,
+                ),
+                todayDecoration: BoxDecoration(
+                  color: AppColors.lightBlueColor.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+              ),
               firstDay: DateTime.utc(2015, 10, 16),
               lastDay: DateTime.utc(2030, 3, 14),
               focusedDay: _focusedDay,
@@ -72,17 +113,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               onPageChanged: (focusedDay) {
                 _focusedDay = focusedDay;
               },
-            ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _selectedDayMatches.length,
-                itemBuilder: (context, index) {
-                  return CalendarMatchWidget(
-                      matchData: _selectedDayMatches[index]);
-                },
-              ),
             ),
           ],
         ),
