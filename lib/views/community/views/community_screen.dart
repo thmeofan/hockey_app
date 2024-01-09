@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hockey_app/consts/app_text_styles/news_text_style.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -30,6 +31,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
+        enableCaption: true,
       ),
     );
   }
@@ -44,10 +46,13 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Community Screen',
-            style: OnboardingTextStyle.screenTitle),
+        title: const Text(
+          'Community Screen',
+          style: OnboardingTextStyle.screenTitle,
+        ),
         backgroundColor: AppColors.blackColor,
       ),
       body: Container(
@@ -75,10 +80,40 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
-                    child: YoutubePlayer(
-                      controller: controller,
-                      showVideoProgressIndicator: true,
-                      liveUIColor: AppColors.lightBlueColor,
+                    child: YoutubePlayerBuilder(
+                      player: YoutubePlayer(
+                        controller: controller,
+                        showVideoProgressIndicator: true,
+                      ),
+                      builder: (context, player) {
+                        return Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            player,
+                            Positioned(
+                              right: 0,
+                              bottom: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Sorry, full screen option isn\'t available.'),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: AppColors.darkGreyColor,
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  color: Colors.transparent,
+                                  height: size.width * 0.1,
+                                  width: size.width * 0.1,
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
                     ),
                   ),
                 ],

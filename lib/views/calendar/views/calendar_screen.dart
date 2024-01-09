@@ -64,7 +64,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               CalendarMatchWidget(matchData: _selectedDayMatches[0]),
             if (!_isLoading && _selectedDayMatches.length > 1)
               CalendarMatchWidget(matchData: _selectedDayMatches[1]),
-            Spacer(),
+            const Spacer(),
             TableCalendar(
               headerStyle: const HeaderStyle(
                 titleTextStyle: TextStyle(
