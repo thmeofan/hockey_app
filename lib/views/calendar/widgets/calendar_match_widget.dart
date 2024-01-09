@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hockey_app/consts/app_colors.dart';
+import 'package:hockey_app/consts/app_text_styles/calendar_text_style.dart';
 
 import '../../../data/repository/api_repository.dart';
 
@@ -13,8 +14,7 @@ class CalendarMatchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeTeam = matchData['teams']['home'];
     final awayTeam = matchData['teams']['away'];
-    final scores = matchData['scores'];
-
+    final screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -29,55 +29,72 @@ class CalendarMatchWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('date:'),
-                  Text(
-                    formatDateTime(matchData['date']),
-                    style: TextStyle(color: AppColors.whiteColor),
+                  const Text(
+                    'date:',
+                    style: CalendarTextStyle.dateTitle,
                   ),
-                  Spacer(),
-                  Text('Match:'),
+                  SizedBox(
+                    width: screenSize.width * 0.01,
+                  ),
+                  Text(
+                    formatDateTimeCalendar(matchData['date']),
+                    style: CalendarTextStyle.date,
+                  ),
+                  const Spacer(),
+                  const Text(
+                    'Match:',
+                    style: CalendarTextStyle.dateTitle,
+                  ),
+                  SizedBox(
+                    width: screenSize.width * 0.01,
+                  ),
                   Text(
                     matchData['league']['name'],
-                    style: TextStyle(color: AppColors.whiteColor),
+                    style: CalendarTextStyle.date,
                   ),
                 ],
               ),
             ),
             SizedBox(
-              height: 15,
+              height: screenSize.width * 0.01,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.network(
-                  homeTeam['logo'],
-                  width: 40,
-                  height: 40,
-                ),
-                Text(
-                  'VS',
-                  style: TextStyle(color: AppColors.whiteColor),
-                ),
-                Image.network(
-                  awayTeam['logo'],
-                  width: 40,
-                  height: 40,
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.all(
+                screenSize.width * 0.01,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.network(
+                    homeTeam['logo'],
+                    width: screenSize.height * 0.05,
+                    height: screenSize.height * 0.05,
+                  ),
+                  const Text(
+                    'VS',
+                    style: CalendarTextStyle.vs,
+                  ),
+                  Image.network(
+                    awayTeam['logo'],
+                    width: screenSize.height * 0.05,
+                    height: screenSize.height * 0.05,
+                  ),
+                ],
+              ),
             ),
             SizedBox(
-              height: 15,
+              height: screenSize.height * 0.01,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   homeTeam['name'],
-                  style: TextStyle(color: AppColors.whiteColor),
+                  style: CalendarTextStyle.team,
                 ),
                 Text(
                   awayTeam['name'],
-                  style: TextStyle(color: AppColors.whiteColor),
+                  style: CalendarTextStyle.team,
                 ),
               ],
             ),

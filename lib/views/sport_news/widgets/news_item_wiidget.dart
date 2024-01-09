@@ -62,10 +62,12 @@ class NewsItemWidget extends StatelessWidget {
                           newsModel.text,
                           style: NewsTextStyle.preview,
                           maxLines: 3,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       SizedBox(
-                        height: screenSize.height * 0.01,
+                        height: screenSize.height * 0.02,
                       ),
                       Text(
                         newsModel.date,

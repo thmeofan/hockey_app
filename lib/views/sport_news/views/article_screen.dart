@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../../consts/app_colors.dart';
 import '../../../consts/app_text_styles/news_text_style.dart';
+import '../../../consts/app_text_styles/onboarding_text_style.dart';
 import '../../../data/models/news_model.dart';
 
 class ArticleScreen extends StatelessWidget {
@@ -18,16 +19,16 @@ class ArticleScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        title: const Text('News'),
-        backgroundColor: Colors.transparent,
+        title: const Text('News', style: OnboardingTextStyle.screenTitle),
+        backgroundColor: AppColors.blackColor,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           icon: SvgPicture.asset(
             'assets/icons/back.svg',
-            width: 24.0,
-            height: 24.0,
+            width: screenSize.width * 0.1,
+            height: screenSize.width * 0.1,
           ),
         ),
       ),
