@@ -61,18 +61,27 @@ class MatchWidget extends StatelessWidget {
             SizedBox(
               height: screenSize.height * 0.01,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  homeTeam['name'],
-                  style: MatchTextStyle.team,
-                ),
-                Text(
-                  awayTeam['name'],
-                  style: MatchTextStyle.team,
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.all(
+                screenSize.height * 0.01,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    homeTeam['name'],
+                    style: MatchTextStyle.team,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    awayTeam['name'],
+                    style: MatchTextStyle.team,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ],
         ),

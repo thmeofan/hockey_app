@@ -20,15 +20,15 @@ class ArticleScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         title: const Text('News', style: OnboardingTextStyle.screenTitle),
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.blackColor,
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
           icon: SvgPicture.asset(
             'assets/icons/back.svg',
-            width: 24.0,
-            height: 24.0,
+            width: screenSize.width * 0.1,
+            height: screenSize.width * 0.1,
           ),
         ),
       ),

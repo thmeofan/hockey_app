@@ -78,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       children: [
                         Text(
                           _current == 0
-                              ? 'Let\'s dive into\n the world of hockey!'
+                              ? 'Let\'s dive into\nthe world of hockey!'
                               : 'We value your feedback',
                           style: OnboardingTextStyle.introduction,
                           textAlign: TextAlign.start,
@@ -113,10 +113,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(2, (index) {
                         return Container(
-                          width: 8.0,
-                          height: 8.0,
+                          width: size.width * 0.02,
+                          height: size.width * 0.02,
                           margin: const EdgeInsets.symmetric(
-                              vertical: 5.0, horizontal: 2.0),
+                              vertical: 1.0, horizontal: 2.0),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: _current == index

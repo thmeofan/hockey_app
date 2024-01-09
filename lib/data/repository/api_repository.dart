@@ -14,7 +14,8 @@ class ApiRepository {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      return data['response'];
+      List<dynamic> matches = data['response'];
+      return matches.take(10).toList();
     } else {
       throw Exception('Failed to load matches');
     }

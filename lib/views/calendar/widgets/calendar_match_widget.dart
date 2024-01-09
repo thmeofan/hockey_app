@@ -33,6 +33,9 @@ class CalendarMatchWidget extends StatelessWidget {
                     'date:',
                     style: CalendarTextStyle.dateTitle,
                   ),
+                  SizedBox(
+                    width: screenSize.width * 0.01,
+                  ),
                   Text(
                     formatDateTimeCalendar(matchData['date']),
                     style: CalendarTextStyle.date,
@@ -42,6 +45,9 @@ class CalendarMatchWidget extends StatelessWidget {
                     'Match:',
                     style: CalendarTextStyle.dateTitle,
                   ),
+                  SizedBox(
+                    width: screenSize.width * 0.01,
+                  ),
                   Text(
                     matchData['league']['name'],
                     style: CalendarTextStyle.date,
@@ -49,27 +55,32 @@ class CalendarMatchWidget extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: screenSize.width * 0.01,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.network(
-                  homeTeam['logo'],
-                  width: screenSize.height * 0.05,
-                  height: screenSize.height * 0.05,
-                ),
-                const Text(
-                  'VS',
-                  style: CalendarTextStyle.vs,
-                ),
-                Image.network(
-                  awayTeam['logo'],
-                  width: screenSize.height * 0.05,
-                  height: screenSize.height * 0.05,
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.all(
+                screenSize.width * 0.01,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.network(
+                    homeTeam['logo'],
+                    width: screenSize.height * 0.05,
+                    height: screenSize.height * 0.05,
+                  ),
+                  const Text(
+                    'VS',
+                    style: CalendarTextStyle.vs,
+                  ),
+                  Image.network(
+                    awayTeam['logo'],
+                    width: screenSize.height * 0.05,
+                    height: screenSize.height * 0.05,
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: screenSize.height * 0.01,

@@ -64,6 +64,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               CalendarMatchWidget(matchData: _selectedDayMatches[0]),
             if (!_isLoading && _selectedDayMatches.length > 1)
               CalendarMatchWidget(matchData: _selectedDayMatches[1]),
+            Spacer(),
             TableCalendar(
               headerStyle: const HeaderStyle(
                 titleTextStyle: TextStyle(
@@ -76,7 +77,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 formatButtonVisible: false,
               ),
               daysOfWeekStyle: const DaysOfWeekStyle(
-                weekdayStyle: TextStyle(color: AppColors.lightGreyColor),
+                weekdayStyle: TextStyle(
+                  color: AppColors.lightGreyColor,
+                ),
                 weekendStyle: TextStyle(color: AppColors.lightBlueColor),
               ),
               calendarStyle: CalendarStyle(
